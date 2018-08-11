@@ -9,10 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2d6612805a7e4d7facb8e9be08f996e, type: 3}
-  m_Name: StarterPhone
+  m_Name: StarterPhoneSettings
   m_EditorClassIdentifier: 
-  diskSpace: 56
-  cool: 75
-  apps:
+  diskSpace: 256
+  installedApps:
   - {fileID: 11400000, guid: 90db0434331f84626b0e2beee63cc0f3, type: 2}
   - {fileID: 11400000, guid: 0ecf7cf3db04c444ba05be3929c7760a, type: 2}

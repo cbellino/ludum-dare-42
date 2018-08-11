@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "App", menuName = "LD42/AppData")]
+[CreateAssetMenu(fileName = "App", menuName = "LD42/App Data")]
 public class AppData : ScriptableObject
 {
 	public new string name;

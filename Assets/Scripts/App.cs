@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class App : MonoBehaviour
 {
+	public delegate void UninstallAction(App app);
+	public static event UninstallAction OnUninstall = delegate { };
+	[HideInInspector] public AppData data;
+
 	private UIApp ui;
-	private AppData data;
 
 	private void Awake()
 	{
@@ -15,14 +18,17 @@ public class App : MonoBehaviour
 	public void Initialize(AppData data)
 	{
 		this.data = data;
-
 		SyncUI();
+	}
+
+	public void Uninstall()
+	{
+		OnUninstall(this);
 	}
 
 	private void SyncUI()
 	{
 		name = data.name;
-
 		ui.SetData(data);
 	}
 }

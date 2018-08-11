@@ -1,22 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AppsManager : MonoBehaviour
 {
-	[SerializeField] private PhoneSettings phoneSettings;
+	public delegate void AppInstallAction(App app);
+	public static event AppInstallAction OnAppInstall = delegate { };
+	public delegate void AppUninstallAction(App app);
+	public static event AppUninstallAction OnAppUninstall = delegate { };
+
 	[SerializeField] private GameObject appPrefab;
 	[SerializeField] private Transform appsContainer;
 
-	private List<App> apps = new List<App>();
+	private List<App> installedApps = new List<App>();
 
-	private void Start()
+	private void OnEnable()
 	{
-		foreach (AppData data in phoneSettings.apps)
+		App.OnUninstall += UninstallApp;
+		PhoneController.OnPhoneInitialize += AddInstalledApps;
+	}
+
+	private void OnDisable()
+	{
+		App.OnUninstall -= UninstallApp;
+		PhoneController.OnPhoneInitialize -= AddInstalledApps;
+	}
+
+	private void AddInstalledApps(PhoneState phoneState)
+	{
+		foreach (AppData data in phoneState.installedApps)
 		{
-			var app = InstantiateApp(data);
-			apps.Add(app);
+			InstallApp(data);
 		}
+	}
+
+	private void InstallApp(AppData data)
+	{
+		var app = InstantiateApp(data);
+		installedApps.Add(app);
+		OnAppInstall(app);
+	}
+
+	private void UninstallApp(App app)
+	{
+		Debug.Log("Uninstalling app: " + app.name);
+
+		OnAppUninstall(app);
+		installedApps.Remove(app);
+		GameObject.Destroy(app.gameObject);
 	}
 
 	private App InstantiateApp(AppData data)

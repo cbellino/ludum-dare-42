@@ -7,13 +7,13 @@ public class UIMeter : MonoBehaviour
 {
 	[SerializeField] private Slider slider;
 
-	public void SetValue(float value)
+	public void SetValue(int value)
 	{
 		slider.value = value;
 	}
 
-	public void AddValue(float value)
+	public void SetMaxValue(int value)
 	{
-		slider.value += value;
+		slider.maxValue = value;
 	}
 }
