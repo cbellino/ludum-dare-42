@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIMeter : MonoBehaviour
 {
-	public Slider slider;
+	[SerializeField] private Slider slider;
 
 	public void SetValue(float value)
 	{
